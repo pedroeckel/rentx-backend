@@ -17,6 +17,11 @@
                 ],
                 "summary": "Create a category",
                 "description": "Create a new category",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -31,8 +36,8 @@
                                     }
                                 },
                                 "example": {
-                                    "name": "Category 1",
-                                    "description": "Category 1 description"
+                                    "name": "category name sample",
+                                    "description": "Category description sample"
                                 }
                             }
                         }
@@ -40,7 +45,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Category created"
+                        "description": "Created"
                     },
                     "500": {
                         "description": "Category already exists"
@@ -52,7 +57,7 @@
                     "Category"
                 ],
                 "summary": "List all categories",
-                "description": "Get all categories",
+                "description": "List all categories",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -75,6 +80,84 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        "/categories/import": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Upload a new category",
+                "description": "Upload a new category",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/specifications": {
+            "post": {
+                "tags": [
+                    "Specifications"
+                ],
+                "summary": "Create a specification",
+                "description": "Create a new specification",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Specification"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Specification already exists!"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Specification": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
                 }
             }
         }
